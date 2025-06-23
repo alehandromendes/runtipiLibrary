@@ -5,7 +5,7 @@
   "exposable": true,
   "dynamic_config": true,
   "tipi_version": 29,
-  "version": "0.12.1",
+  "version": "latest",
   "port": 8677,
   "id": "stalwart-mail",
   "categories": ["media", "network", "utilities"],
