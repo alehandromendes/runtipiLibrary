@@ -2,8 +2,8 @@
   "$schema": "../dynamic-compose-schema.json",
   "services": [
     {
-      "name": "stalwart-mail-newer",
-      "image": "stalwartlabs/mail-server:v0.12.4",
+      "name": "stalwart-mail",
+      "image": "stalwartlabs/stalwart:latest",
       "isMain": true,
       "internalPort": 8080,
       "addPorts": [
