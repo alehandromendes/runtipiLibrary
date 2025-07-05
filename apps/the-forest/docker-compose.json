@@ -7,48 +7,24 @@
       "isMain": true,
       "internalPort": 27015,
       "addPorts": [
-        {
-          "hostPort": 8766,
-          "containerPort": 8766,
-          "interface": "${NETWORK_INTERFACE:-0.0.0.0}",
-          "udp": true
-        },
-        {
-          "hostPort": 27015,
-          "containerPort": 27015,
-          "interface": "${NETWORK_INTERFACE:-0.0.0.0}",
-          "udp": true
-        },
-        {
-          "hostPort": 27016,
-          "containerPort": 27016,
-          "interface": "${NETWORK_INTERFACE:-0.0.0.0}",
-          "tcp": true
-        }
+        {"hostPort": 8766, "containerPort": 8766, "interface": "${NETWORK_INTERFACE:-0.0.0.0}", "udp": true},
+        {"hostPort": 27015, "containerPort": 27015, "interface": "${NETWORK_INTERFACE:-0.0.0.0}", "udp": true},
+        {"hostPort": 27016, "containerPort": 27016, "interface": "${NETWORK_INTERFACE:-0.0.0.0}", "udp": true},
+        {"hostPort": 9700, "containerPort": 9700, "interface": "${NETWORK_INTERFACE:-0.0.0.0}", "udp": true}
       ],
       "environment": [
-        {
-          "name": "SERVER_NAME",
-          "value": "${SERVER_NAME:-MyForestServer}"
-        },
-        {
-          "name": "SERVER_PASSWORD",
-          "value": "${SERVER_PASSWORD:-1234}"
-        },
-        {
-          "name": "STEAM_BRANCH",
-          "value": "${STEAM_BRANCH:-public}"
-        },
-        {
-          "name": "TZ",
-          "value": "${TZ:-America/Sao_Paulo}"
-        }
+        {"name": "PUID", "value": "${PUID:-1000}"},
+        {"name": "PGID", "value": "${PGID:-1000}"},
+        {"name": "ALWAYS_UPDATE_ON_START", "value": "${ALWAYS_UPDATE_ON_START:-true}"},
+        {"name": "SKIP_NETWORK_ACCESSIBILITY_TEST", "value": "${SKIP_NETWORK_ACCESSIBILITY_TEST:-true}"},
+        {"name": "FILTER_SHADER_AND_MESH", "value": "${FILTER_SHADER_AND_MESH:-true}"},
+        {"name": "SERVER_NAME", "value": "${SERVER_NAME:-MyForestServer}"},
+        {"name": "SERVER_PASSWORD", "value": "${SERVER_PASSWORD:-1234}"},
+        {"name": "STEAM_BRANCH", "value": "${STEAM_BRANCH:-public}"},
+        {"name": "TZ", "value": "${TZ:-America/Sao_Paulo}"}
       ],
       "volumes": [
-        {
-          "hostPath": "${APP_DATA_DIR}/data",
-          "containerPath": "/steamcmd/sons-of-the-forest"
-        }
+        {"hostPath": "${APP_DATA_DIR}/data", "containerPath": "/steamcmd/sons-of-the-forest"}
       ],
       "restart": "unless-stopped"
     }

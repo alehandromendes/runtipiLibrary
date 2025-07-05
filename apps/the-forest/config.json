@@ -15,7 +15,7 @@
   "source": "https://github.com/jammsen/docker-sons-of-the-forest-dedicated-server",
   "website": "https://store.steampowered.com/app/1326470/Sons_Of_The_Forest/",
   "requirements": {
-    "ports": [8766, 27015, 27016]
+    "ports": [8766, 27015, 27016, 9700]
   },
   "form_fields": [
     {
@@ -45,6 +45,41 @@
       "required": false,
       "env_variable": "TZ",
       "default": "America/Sao_Paulo"
+    },
+    {
+      "type": "number",
+      "label": "User ID (PUID)",
+      "required": false,
+      "env_variable": "PUID",
+      "default": 1000
+    },
+    {
+      "type": "number",
+      "label": "Group ID (PGID)",
+      "required": false,
+      "env_variable": "PGID",
+      "default": 1000
+    },
+    {
+      "type": "checkbox",
+      "label": "Atualizar sempre ao iniciar",
+      "required": false,
+      "env_variable": "ALWAYS_UPDATE_ON_START",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "label": "Ignorar teste de rede",
+      "required": false,
+      "env_variable": "SKIP_NETWORK_ACCESSIBILITY_TEST",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "label": "Filtrar Shader e Mesh",
+      "required": false,
+      "env_variable": "FILTER_SHADER_AND_MESH",
+      "default": true
     }
   ],
   "supported_architectures": ["amd64"],

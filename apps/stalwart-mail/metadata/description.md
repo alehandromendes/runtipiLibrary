@@ -1,68 +1,134 @@
-## Stalwart Mail server
+# Docker - Sons of the Forest Dedicated Server
 
-Stalwart is a scalable, secure and robust open-source mail server software designed for the 21st century.
+[![Build-Status master](https://github.com/jammsen/docker-sons-of-the-forest-dedicated-server/blob/master/.github/workflows/docker-build-and-push-prod.yml/badge.svg)](https://github.com/jammsen/docker-sons-of-the-forest-dedicated-server/blob/master/.github/workflows/docker-build-and-push-prod.yml)
+![Docker Pulls](https://img.shields.io/docker/pulls/jammsen/sons-of-the-forest-dedicated-server)
+![Docker Stars](https://img.shields.io/docker/stars/jammsen/sons-of-the-forest-dedicated-server)
+![Image Size](https://img.shields.io/docker/image-size/jammsen/sons-of-the-forest-dedicated-server/latest)
+[![Discord](https://img.shields.io/discord/532141442731212810?logo=discord&label=Discord&link=https%3A%2F%2Fdiscord.gg%2F7tacb9Q6tj)](https://discord.gg/7tacb9Q6tj)
 
-### Admin Password
+> [!TIP]
+> Do you want to chat with the community?
+>
+> **[Join us on Discord](https://discord.gg/7tacb9Q6tj)**
 
-See [Log in to the web interface](https://stalw.art/docs/install/docker#log-in-to-the-web-interface) to know how to get the admin password.
+> [!WARNING]  
+> Update Jan-2025: This Docker-Image had a major refactoring including breaking changes in downwards-compability. This was done for removing dependency of "root" in the image, which caused various SteamCMD, NAS, QNAP, Synology and Portainer problems. Also the Docker-Base-Image was switched and there was better process-handling added to make sure the process exits cleanly, no matter how Docker or the User stops the server.
+>
+> It is recommended to do a fresh install, via the new readme in a fresh directory to understand what changed and work backwards to adapt the changes, or migrate the savegame from the old server to the new one, up to you. If you need help, feel free to join the Discord server and ask in the right channel for the game. 
 
-### Screenshots
+> [!NOTE]  
+> If you are looking for the TheForest version, please look here: https://github.com/jammsen/docker-the-forest-dedicated-server
 
-<img src="https://github.com/stalwartlabs/mail-server/blob/main/img/screencast-setup.gif?raw=true" alt="Stalwart Mail Server setup screencast"><br>
+This repository includes a Sons of the Forest Dedicated Server based on Docker with Wine and an example config.
 
-### Features
+___
 
-**Stalwart Mail Server** is an open-source mail server solution with JMAP, IMAP4, and SMTP support and a wide range of modern features. It is written in Rust and designed to be secure, fast, robust and scalable.
+## Table of Contents
 
-Key features:
+- [Docker - Sons of the Forest Dedicated Server](#docker---sons-of-the-forest-dedicated-server)
+  - [Table of Contents](#table-of-contents)
+  - [How to ask for support for this Docker image](#how-to-ask-for-support-for-this-docker-image)
+  - [Requirements](#requirements)
+  - [Minimum system requirements](#minimum-system-requirements)
+  - [Changelog](#changelog)
+  - [Wiki](#wiki)
+  - [Getting started](#getting-started)
+    - [Docker-Compose - Example](#docker-compose---example)
+  - [Planned features in the future](#planned-features-in-the-future)
+  - [Software used](#software-used)
 
-- **JMAP** server:
-  - JMAP Core ([RFC 8620](https://datatracker.ietf.org/doc/html/rfc8620))
-  - JMAP Mail ([RFC 8621](https://datatracker.ietf.org/doc/html/rfc8621))
-  - JMAP for Sieve Scripts ([DRAFT-SIEVE-19](https://www.ietf.org/archive/id/draft-ietf-jmap-sieve-19.html))
-  - JMAP over WebSocket ([RFC 8887](https://datatracker.ietf.org/doc/html/rfc8887)), JMAP Blob Management ([RFC 9404](https://www.rfc-editor.org/rfc/rfc9404.html)) and JMAP for Quotas ([RFC 9425](https://www.rfc-editor.org/rfc/rfc9425.html)) extensions.
-- **IMAP4** server:
-  - IMAP4rev2 ([RFC 9051](https://datatracker.ietf.org/doc/html/rfc9051)) full compliance.
-  - IMAP4rev1 ([RFC 3501](https://datatracker.ietf.org/doc/html/rfc3501)) backwards compatible.
-  - ManageSieve ([RFC 5804](https://datatracker.ietf.org/doc/html/rfc5804)) server.
-  - Numerous [extensions](https://stalw.art/docs/development/rfcs#imap4-and-extensions) supported.
-- **SMTP** server:
-  - Built-in [DMARC](https://datatracker.ietf.org/doc/html/rfc7489), [DKIM](https://datatracker.ietf.org/doc/html/rfc6376), [SPF](https://datatracker.ietf.org/doc/html/rfc7208) and [ARC](https://datatracker.ietf.org/doc/html/rfc8617) support for message authentication.
-  - Strong transport security through [DANE](https://datatracker.ietf.org/doc/html/rfc6698), [MTA-STS](https://datatracker.ietf.org/doc/html/rfc8461) and [SMTP TLS](https://datatracker.ietf.org/doc/html/rfc8460) reporting.
-  - Inbound throttling and filtering with granular configuration rules, sieve scripting and milter integration.
-  - Distributed virtual queues with delayed delivery, priority delivery, quotas, routing rules and throttling support.
-  - Envelope rewriting and message modification.
-- **Spam and Phishing** filter:
-  - Comprehensive set of filtering **rules** on par with popular solutions.
-  - Statistical **spam classifier** with automatic training capabilities.
-  - DNS Blocklists (**DNSBLs**) checking of IP addresses, domains, and hashes.
-  - Collaborative digest-based spam filtering with **Pyzor**.
-  - **Phishing** protection against homographic URL attacks, sender spoofing and other techniques.
-  - Trusted **reply** tracking to recognize and prioritize genuine e-mail replies.
-  - Sender **reputation** monitoring by IP address, ASN, domain and email address.
-  - **Greylisting** to temporarily defer unknown senders.
-  - **Spam traps** to set up decoy email addresses that catch and analyze spam.
-- **Flexible and scalable**:
-  - Pluggable storage backends with **RocksDB**, **FoundationDB**, **PostgreSQL**, **mySQL**, **SQLite**, **S3-Compatible**, **Redis** and **ElasticSearch** support.
-  - Built-in, **LDAP** or **SQL** authentication backend support.
-  - Full-text search available in 17 languages.
-  - Disk quotas.
-  - Sieve scripting language with support for all [registered extensions](https://www.iana.org/assignments/sieve-extensions/sieve-extensions.xhtml).
-  - Email aliases, mailing lists, subaddressing and catch-all addresses support.
-  - Integration with **OpenTelemetry** to enable monitoring, tracing, and performance analysis.
-- **Web-based administration**:
-  - Account, domain, group and mailing list management.
-  - SMTP queue management for messages and outbound DMARC and TLS reports.
-  - Report visualization interface for received DMARC, TLS-RPT and Failure (ARF) reports.
-  - Configuration of every aspect of the mail server.
-  - Log viewer with search and filtering capabilities.
-  - Self-service portal for password reset and encryption-at-rest key management.
-- **Secure and robust**:
-  - Encryption at rest with **S/MIME** or **OpenPGP**.
-  - Automatic TLS certificate provisioning with [ACME](https://datatracker.ietf.org/doc/html/rfc8555).
-  - OAuth 2.0 [authorization code](https://www.rfc-editor.org/rfc/rfc8628) and [device authorization](https://www.rfc-editor.org/rfc/rfc8628) flows.
-  - Automated blocking of hosts that cause multiple authentication errors (aka **fail2ban**).
-  - Access Control Lists (ACLs).
-  - Rate limiting.
-  - Security audited (read the [report](https://stalw.art/blog/security-audit)).
-  - Memory safe (thanks to Rust).
+
+## How to ask for support for this Docker image
+
+If you need support for this Docker image:
+
+- Feel free to create a new issue.
+  - You can reference other issues if you're experiencing a similar problem via #issue-number.
+- Follow the instructions and answer the questions of people who are willing to help you.
+- Once your issue is resolved, please close it and please consider giving this repo and the [Docker-Hub repository](https://hub.docker.com/repository/docker/jammsen/sons-of-the-forest-dedicated-server) a star.
+- Please note that any issue that has been inactive for a week will be closed due to inactivity.
+
+Please avoid:
+
+- Reusing or necroing issues. This can lead to spam and may harass participants who didn't agree to be part of your new problem.
+- If this happens, we reserve the right to lock the issue or delete the comments, you have been warned!
+
+## Requirements
+
+To run this Docker image, you need a basic understanding of Docker, Docker-Compose, Linux, and Networking (Port-Forwarding/NAT).
+
+## Minimum system requirements
+
+| Resource | Minimum (2-4 Players)   | Recommended (4 Players) |
+| -------- | ----------------------- | ----------------------- |
+| CPU      | 2-4 CPU-Cores @ Mid GHz | 4+ CPU Cores @ High GHz |
+| RAM      | 8GB+ RAM                | 16GB+ RAM               |
+| Storage  | 12GB+                   | 20GB+ (SSD prefered)    |
+
+## Changelog
+
+You can find the [changelog here](CHANGELOG.md)
+
+## Wiki
+
+> [!TIP]
+> Currently out-dated, because of Major refactoring, with breaking changes!
+
+~~We have very detailed instruction in our [Wiki](https://github.com/jammsen/docker-sons-of-the-forest-dedicated-server/wiki) page.~~
+
+## Getting started
+
+If you already hosted some containers, just follow these steps:
+
+1. Go to the directory you want to host your gameserver on your Dockernode
+2. Create a sub-directory called `game`
+3. Download the [docker-compose.yml](docker-compose.yml) or use the following example
+4. Review the file and setup the settings you like
+5. Setup Port-Forwarding or NAT for the ports in the Docker-Compose file
+6. Start the container via Docker Compose
+7. (Tip: Extended config settings, which are not covered by Docker Compose, can be setup in the config-file of the server - You can find it at `game/userdata/dedicatedserver.cfg`)
+
+### Docker-Compose - Example
+
+```yaml
+version: '3.9'
+services:
+  sons-of-the-forest-dedicated-server:
+    container_name: sons-of-the-forest-dedicated-server
+    image: jammsen/sons-of-the-forest-dedicated-server:latest
+    restart: always
+    environment:
+      PUID: 1000
+      PGID: 1000
+      ALWAYS_UPDATE_ON_START: true
+      SKIP_NETWORK_ACCESSIBILITY_TEST: true
+      FILTER_SHADER_AND_MESH: true
+    ports:
+      - 8766:8766/udp
+      - 27016:27016/udp
+      - 9700:9700/udp
+    volumes:
+      - ./game:/sonsoftheforest
+```
+
+> **Note:** The `FILTER_SHADER_AND_MESH` environment variable (default: true) controls whether shader-related warning messages are filtered from the container logs. When set to true, it removes the following messages keeping your logs cleaner. Set to false if you want to see all shader warnings.
+> * Shader XYZ shader is not supported on this GPU
+> * WARNING: Shader Unsupported: 'XYZ' - All subshaders removed
+> * WARNING: Shader Did you use XYZ and omit this platform?
+> * WARNING: Shader If subshaders removal was intentional, you may have forgotten turning Fallback off?
+> * No mesh data available for mesh XYZ
+> * Couldn't create a Convex Mesh from source mesh XYZ
+
+## Planned features in the future
+
+- Feel free to suggest features in the issues
+
+## Software used
+
+- Debian Stable and SteamCMD via cm2network/steamcmd:root image as base-image
+- gosu
+- procps
+- winbind
+- wine
+- xvfb
+- SonsOfTheForest Dedicated Server (APP-ID: 2465200)

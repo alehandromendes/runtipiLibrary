@@ -11,12 +11,18 @@ services:
     ports:
       - ${NETWORK_INTERFACE:-0.0.0.0}:8766:8766/udp
       - ${NETWORK_INTERFACE:-0.0.0.0}:27015:27015/udp
-      - ${NETWORK_INTERFACE:-0.0.0.0}:27016:27016/tcp
+      - ${NETWORK_INTERFACE:-0.0.0.0}:27016:27016/udp
+      - ${NETWORK_INTERFACE:-0.0.0.0}:9700:9700/udp
     environment:
       - SERVER_NAME=${SERVER_NAME:-MyForestServer}
       - SERVER_PASSWORD=${SERVER_PASSWORD:-1234}
       - STEAM_BRANCH=${STEAM_BRANCH:-public}
       - TZ=${TZ:-America/Sao_Paulo}
+      - PUID=${PUID:-1000}
+      - PGID=${PGID:-1000}
+      - ALWAYS_UPDATE_ON_START=${ALWAYS_UPDATE_ON_START:-true}
+      - SKIP_NETWORK_ACCESSIBILITY_TEST=${SKIP_NETWORK_ACCESSIBILITY_TEST:-true}
+      - FILTER_SHADER_AND_MESH=${FILTER_SHADER_AND_MESH:-true}
     labels:
       traefik.enable: false
       runtipi.managed: true
