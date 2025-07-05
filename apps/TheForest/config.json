@@ -1,31 +1,53 @@
 {
   "$schema": "../app-info-schema.json",
-  "name": "Sons Of the Forest - Dedicated Server",
+  "name": "Sons of the Forest Server",
   "available": true,
   "exposable": true,
-  "dynamic_config": true,
+  "dynamic_config": false,
   "tipi_version": 29,
   "version": "latest",
-  "port": 8766,
-  "id": "sons-of-the-forest-dedicated-server",
-  "categories": ["media", "network", "utilities"],
-  "description": "Sons Of the Forest - Dedicated Server",
-  "short_desc": "Open-source mail server solution with JMAP, IMAP4, and SMTP support",
-  "author": "Jammsen",
+  "port": 27015,
+  "id": "sons-of-the-forest",
+  "categories": ["games", "server", "steam"],
+  "description": "Servidor dedicado para o jogo Sons of the Forest, executado via Docker.",
+  "short_desc": "Servidor dedicado Sons of the Forest via Docker.",
+  "author": "jammsen",
   "source": "https://github.com/jammsen/docker-sons-of-the-forest-dedicated-server",
-  "website": "https://github.com/jammsen/docker-sons-of-the-forest-dedicated-server",
+  "website": "https://store.steampowered.com/app/1326470/Sons_Of_The_Forest/",
   "requirements": {
-    "ports": [8766, 27016, 9700]
+    "ports": [8766, 27015, 27016]
   },
   "form_fields": [
     {
-      "type": "ip",
-      "label": "Network Interface (default: 0.0.0.0)",
+      "type": "text",
+      "label": "Server Name",
+      "required": true,
+      "env_variable": "SERVER_NAME",
+      "default": "MyForestServer"
+    },
+    {
+      "type": "text",
+      "label": "Server Password",
       "required": false,
-      "env_variable": "NETWORK_INTERFACE"
+      "env_variable": "SERVER_PASSWORD",
+      "default": "1234"
+    },
+    {
+      "type": "text",
+      "label": "Steam Branch",
+      "required": false,
+      "env_variable": "STEAM_BRANCH",
+      "default": "public"
+    },
+    {
+      "type": "timezone",
+      "label": "Timezone",
+      "required": false,
+      "env_variable": "TZ",
+      "default": "America/Sao_Paulo"
     }
   ],
-  "supported_architectures": ["arm64", "amd64"],
-  "created_at": 1691943801422,
-  "updated_at": 1748546155827
+  "supported_architectures": ["amd64"],
+  "created_at": 1748740200000,
+  "updated_at": 1748740200000
 }

@@ -2,36 +2,61 @@
   "$schema": "../dynamic-compose-schema.json",
   "services": [
     {
-      "name": "sons-of-the-forest-dedicated-server",
+      "name": "sons-of-the-forest",
       "image": "jammsen/sons-of-the-forest-dedicated-server:latest",
       "isMain": true,
-      "internalPort": 8080,
+      "internalPort": 27015,
       "addPorts": [
         {
           "hostPort": 8766,
           "containerPort": 8766,
           "interface": "${NETWORK_INTERFACE:-0.0.0.0}",
-          "tcp": true
+          "udp": true
+        },
+        {
+          "hostPort": 27015,
+          "containerPort": 27015,
+          "interface": "${NETWORK_INTERFACE:-0.0.0.0}",
+          "udp": true
+        },
+		{
+          "hostPort": 9700,
+          "containerPort": 9700,
+          "interface": "${NETWORK_INTERFACE:-0.0.0.0}",
+          "udp": true
         },
         {
           "hostPort": 27016,
           "containerPort": 27016,
           "interface": "${NETWORK_INTERFACE:-0.0.0.0}",
           "tcp": true
+        }
+      ],
+      "environment": [
+        {
+          "name": "SERVER_NAME",
+          "value": "${SERVER_NAME:-MyForestServer}"
         },
         {
-          "hostPort": 9700,
-          "containerPort": 9700,
-          "interface": "${NETWORK_INTERFACE:-0.0.0.0}",
-          "tcp": true
+          "name": "SERVER_PASSWORD",
+          "value": "${SERVER_PASSWORD:-1234}"
+        },
+        {
+          "name": "STEAM_BRANCH",
+          "value": "${STEAM_BRANCH:-public}"
+        },
+        {
+          "name": "TZ",
+          "value": "${TZ:-America/Sao_Paulo}"
         }
       ],
       "volumes": [
         {
-          "hostPath": "${APP_DATA_DIR}/game",
-          "containerPath": "/opt/sonsoftheforest"
+          "hostPath": "${APP_DATA_DIR}/data",
+          "containerPath": "/steamcmd/sons-of-the-forest"
         }
-      ]
+      ],
+      "restart": "unless-stopped"
     }
   ]
 }
