@@ -5,49 +5,37 @@
       "name": "stalwart-mail",
       "image": "stalwartlabs/stalwart:latest",
       "isMain": true,
-      "internalPort": 8080,
+      "internalPort": 27015,
       "addPorts": [
         {
-          "hostPort": 25,
-          "containerPort": 25,
+          "hostPort": 8766,
+          "containerPort": 8766,
           "interface": "${NETWORK_INTERFACE:-0.0.0.0}",
-          "tcp": true
+          "udp": true
         },
         {
-          "hostPort": 143,
-          "containerPort": 143,
+          "hostPort": 27015,
+          "containerPort": 27015,
           "interface": "${NETWORK_INTERFACE:-0.0.0.0}",
-          "tcp": true
+          "udp": true
         },
         {
-          "hostPort": 465,
-          "containerPort": 465,
+          "hostPort": 27016,
+          "containerPort": 27016,
           "interface": "${NETWORK_INTERFACE:-0.0.0.0}",
-          "tcp": true
+          "udp": true
         },
         {
-          "hostPort": 587,
-          "containerPort": 587,
+          "hostPort": 9700,
+          "containerPort": 9700,
           "interface": "${NETWORK_INTERFACE:-0.0.0.0}",
-          "tcp": true
-        },
-        {
-          "hostPort": 993,
-          "containerPort": 993,
-          "interface": "${NETWORK_INTERFACE:-0.0.0.0}",
-          "tcp": true
-        },
-        {
-          "hostPort": 4190,
-          "containerPort": 4190,
-          "interface": "${NETWORK_INTERFACE:-0.0.0.0}",
-          "tcp": true
+          "udp": true
         }
       ],
       "volumes": [
         {
           "hostPath": "${APP_DATA_DIR}/data",
-          "containerPath": "/opt/stalwart-mail"
+          "containerPath": "/opt/sons-of-the-forest"
         }
       ]
     }
