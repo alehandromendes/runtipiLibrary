@@ -10,8 +10,10 @@ services:
       ALWAYS_UPDATE_ON_START: true
       SKIP_NETWORK_ACCESSIBILITY_TEST: true
     ports:
-      - 8766:8766/udp
-      - 27016:27016/udp
-      - 9700:9700/udp
+      - ${NETWORK_INTERFACE:-0.0.0.0}:8766:8766/udp
+      - ${NETWORK_INTERFACE:-0.0.0.0}:27016:27016/udp
+      - ${NETWORK_INTERFACE:-0.0.0.0}:9700:9700/udp
     volumes:
-      - ./game:/sonsoftheforest
+      - ${APP_DATA_DIR}/game:/opt/sonsoftheforest
+    networks:
+      - tipi_main_network

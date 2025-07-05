@@ -28,7 +28,7 @@
       ],
       "volumes": [
         {
-          "hostPath": "${APP_DATA_DIR}/data",
+          "hostPath": "${APP_DATA_DIR}/game",
           "containerPath": "/opt/sonsoftheforest"
         }
       ]
