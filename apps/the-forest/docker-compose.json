@@ -19,12 +19,6 @@
           "interface": "${NETWORK_INTERFACE:-0.0.0.0}",
           "udp": true
         },
-		{
-          "hostPort": 9700,
-          "containerPort": 9700,
-          "interface": "${NETWORK_INTERFACE:-0.0.0.0}",
-          "udp": true
-        },
         {
           "hostPort": 27016,
           "containerPort": 27016,
